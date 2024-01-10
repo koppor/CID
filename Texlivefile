@@ -53,6 +53,7 @@ listings
 ltxcmds
 luatex
 luatexbase
+mathptmx
 microtype
 mnsymbol
 mwe
@@ -60,6 +61,7 @@ nag
 newfloat
 newtx
 newtxtt
+nimbus15
 oberdiek
 orcidlink
 pdfescape
