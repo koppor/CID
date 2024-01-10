@@ -29,7 +29,6 @@ jobs:
         uses: zauguin/install-texlive@v3
         with:
            package_file: Texlivefile
-           cache_version: 1
       - name: Generate files based on cidarticle.{ins.dtx}
         run: |
           pdflatex cidarticle.ins
