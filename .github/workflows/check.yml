@@ -52,7 +52,7 @@ jobs:
           version: 1.0
 
       - run: ${{ matrix.engine }} cidarticle-author-template
-      - run: texlogsieve cidarticle-example.log
+      - run: texlogsieve cidarticle-author-template.log
 
       - name: Upload build result
         uses: actions/upload-artifact@v3
