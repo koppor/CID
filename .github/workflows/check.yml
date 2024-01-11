@@ -27,13 +27,30 @@ jobs:
           show-progress: ''
 
       - name: Install NimbusSanL-Reg
-        run: sudo apt-get update && sudo apt-get install -y gsfonts
+        uses: awalsh128/cache-apt-pkgs-action@latest
+        if: matrix.engine == 'lualatex'
+        with:
+          packages: gsfonts fontforge
+          version: 1.0
+
+      - name: Create font OTF versions
+        if: matrix.engine == 'lualatex'
+        run: |
+          # hint by https://askubuntu.com/a/1287478/196423
+          while read -r pfb_path otf_path; do
+              fontforge -lang=ff -c 'Open($1); Generate($2)' "$pfb_path" "$otf_path"
+          done << EOF
+          /usr/share/fonts/type1/gsfonts/n021003l.pfb NimbusRomNo9L-Reg.otf
+          /usr/share/fonts/type1/gsfonts/n021004l.pfb NimbusRomNo9L-Med.otf
+          /usr/share/fonts/type1/gsfonts/n021023l.pfb NimbusRomNo9L-RegIta.otf
+          /usr/share/fonts/type1/gsfonts/n021024l.pfb NimbusRomNo9L-MedITa.otf
+          EOF
 
       - name: Install TeX Live
         uses: zauguin/install-texlive@v3
         with:
            package_file: Texlivefile
-           cache_version: 2
+           cache_version: 3
 
       - name: Generate files based on cidarticle.{ins.dtx}
         run: |
