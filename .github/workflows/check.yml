@@ -27,16 +27,13 @@ jobs:
           show-progress: ''
 
       - name: Install NimbusSanL-Reg
-        uses: awalsh128/cache-apt-pkgs-action@latest
-        if: matrix.engine == 'lualatex'
-        with:
-          packages: gsfonts
-          version: 1.0
+        run: sudo apt-get update && sudo apt-get install -y gsfonts
 
       - name: Install TeX Live
         uses: zauguin/install-texlive@v3
         with:
            package_file: Texlivefile
+           cache_version: 2
 
       - name: Generate files based on cidarticle.{ins.dtx}
         run: |
